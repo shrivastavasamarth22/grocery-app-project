@@ -1,0 +1,282 @@
+{% include "header.html" %}
+
+<section>
+    <div class="container">
+        <!-- col -->
+        <div class="col-12">
+            <div class="d-flex justify-content-between align-items-center d-md-none py-4">
+                <!-- heading -->
+                <h3 class="fs-5 mb-0">Addresses</h3>
+                <!-- button -->
+                <button class="btn btn-outline-gray-400 text-muted d-md-none btn-icon btn-sm ms-3 " type="button"
+                        data-bs-toggle="offcanvas" data-bs-target="#offcanvasAccount"
+                        aria-controls="offcanvasAccount">
+                    <i class="bi bi-text-indent-left fs-3"></i>
+                </button>
+            </div>
+        </div>
+        <div class="row">
+            <!-- col -->
+            <div class="col-lg-3 col-md-4 col-12 border-end  d-none d-md-block">
+                <div class="pt-10 pe-lg-10">
+                    <!-- nav item -->
+                    <ul class="nav flex-column nav-pills nav-pills-dark">
+                        <li class="nav-item">
+                            <a class="nav-link " aria-current="page" href="#"><i
+                                    class="feather-icon icon-shopping-bag me-2"></i>Your Orders</a>
+                        </li>
+                        <!-- nav item -->
+                        <li class="nav-item">
+                            <a class="nav-link active" href="{{ url_for('addresses') }}"><i
+                                    class="feather-icon icon-map-pin me-2"></i>Address</a>
+                        </li>
+                        <!-- nav item -->
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url_for('account_settings') }}"><i
+                                    class="feather-icon icon-settings me-2"></i>Settings</a>
+                        </li>
+                        <!-- nav item -->
+                        <li class="nav-item">
+                            <hr>
+                        </li>
+                        <!-- nav item -->
+                        <li class="nav-item">
+                            <a class="nav-link " href="{{ url_for('logout') }}"><i
+                                    class="feather-icon icon-log-out me-2"></i>Log out</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <!-- col -->
+            <div class="col-lg-9 col-md-8 col-12">
+                <div class="py-6 p-md-6 p-lg-10">
+                    <div class="d-flex justify-content-between mb-6">
+                        <!-- heading -->
+                        <h2 class="mb-0">My Addresses</h2>
+                        <!-- button -->
+                        <a href="#"
+                           class="btn btn-outline-primary"
+                           data-bs-toggle="modal"
+                           data-bs-target="#addAddressModal"
+                        >
+                            Add a new address
+                        </a>
+                    </div>
+
+                    <!-- col -->
+                    {% if addresses %}
+                        <div class="row">
+                            {% for address in addresses %}
+                                <div class="col-lg-5 col-xxl-4 col-12 mb-4">
+                                    <!-- form -->
+
+                                    <div class="card">
+                                        <div class="card-body p-6">
+                                            <h2 class="mb-4 h6">
+                                                {{ address.label }}
+                                            </h2>
+                                            <!-- address -->
+                                            <p class="mb-6">
+                                                {{ address.address1 }},<br/>
+
+                                                {{ address.address2 }}, {{ address.city }}
+                                                <br/>
+
+                                                {{ address.state }}, {{ address.country }}<br/>
+
+                                                {{ address.zip_code }}
+                                            </p>
+                                            <div class="mt-4">
+                                                <a href="{{ url_for('delete_address', address_id=address.address_id) }}"
+                                                   class="text-danger"
+                                                >
+                                                    Delete
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        <div class="col-12 text-center">
+                            <h2 class="h5 text-gray-400">You do not have any saved addresses...</h2>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Create Modal -->
+<div class="modal fade"
+     id="addAddressModal"
+     tabindex="-1"
+     aria-labelledby="addAddressModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <!-- modal content -->
+        <div class="modal-content">
+            <!-- modal body -->
+            <div class="modal-body p-6">
+                <div class="d-flex justify-content-between mb-5">
+                    <div>
+                        <!-- heading -->
+                        <h5 class="mb-1" id="addAddressModalLabel">
+                            New Shipping Address
+                        </h5>
+                        <p class="small mb-0">
+                            Add new shipping address for your order
+                            delivery.
+                        </p>
+                    </div>
+                    <div>
+                        <!-- button -->
+                        <button
+                                type="button"
+                                class="btn-close"
+                                data-bs-dismiss="modal"
+                                aria-label="Close"
+                        ></button>
+                    </div>
+                </div>
+                <!-- row -->
+                <form action="{{ url_for('add_address') }}" method="post">
+                    <div class="row g-3">
+                        <!-- col -->
+                        <div class="col-12">
+                            <!-- input -->
+                            <input
+                                    type="text"
+                                    class="form-control"
+                                    placeholder="Label"
+                                    aria-label="Label"
+                                    name="label"
+                                    required
+                            />
+                        </div>
+                        <!-- col -->
+                        <div class="col-12">
+                            <!-- input -->
+                            <input
+                                    type="text"
+                                    class="form-control"
+                                    placeholder="Address Line 1"
+                                    aria-label="Address Line 1"
+                                    name="address1"
+                                    required
+                            />
+                        </div>
+                        <!-- col -->
+                        <div class="col-12">
+                            <!-- input -->
+                            <input
+                                    type="text"
+                                    class="form-control"
+                                    placeholder="Address Line 2"
+                                    aria-label="Address Line 2"
+                                    name="address2"
+                                    required
+                            />
+                        </div>
+                        <!-- col -->
+                        <div class="col-12">
+                            <!-- input -->
+                            <input
+                                    type="text"
+                                    class="form-control"
+                                    placeholder="City"
+                                    aria-label="City"
+                                    name="city"
+                                    required
+                            />
+                        </div>
+                        <!-- col -->
+                        <div class="col-12">
+                            <!-- form select -->
+                            <select class="form-select" name="country">
+                                <option value="India">India</option>
+                            </select>
+                        </div>
+                        <!-- col -->
+                        <div class="col-12">
+                            <!-- form select -->
+                            <select class="form-select" name="state">
+                                <option selected>Choose State</option>
+                                {% for state in states %}
+                                    <option value="{{ state }}">{{ state }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <!-- col -->
+                        <div class="col-12">
+                            <!-- input -->
+                            <input
+                                    type="text"
+                                    class="form-control"
+                                    placeholder="Zip Code"
+                                    aria-label="Zip Code"
+                                    name="zip"
+                                    required
+                            />
+                        </div>
+                        <!-- col -->
+                        <div class="col-12 text-end">
+                            <button
+                                    type="button"
+                                    class="btn btn-outline-primary"
+                                    data-bs-dismiss="modal"
+                            >
+                                Cancel
+                            </button>
+                            <button class="btn btn-primary" type="submit">
+                                Save Address
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasAccount" aria-labelledby="offcanvasAccountLabel">
+    <!-- offcanvas header -->
+    <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="offcanvasAccountLabel">Offcanvas</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <!-- offcanvas body -->
+    <div class="offcanvas-body">
+        <ul class="nav flex-column nav-pills nav-pills-dark">
+            <li class="nav-item">
+                <a class="nav-link " aria-current="page" href="account-orders.html"><i
+                        class="feather-icon icon-shopping-bag me-2"></i>Your Orders</a>
+            </li>
+            <!-- nav item -->
+            <li class="nav-item">
+                <a class="nav-link active" href="{{ url_for('addresses') }}"><i
+                        class="feather-icon icon-map-pin me-2"></i>Address</a>
+            </li>
+            <!-- nav item -->
+            <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('account_settings') }}"><i
+                        class="feather-icon icon-settings me-2"></i>Settings</a>
+            </li>
+        </ul>
+        <hr class="my-6">
+        <div>
+            <!-- navs -->
+            <ul class="nav flex-column nav-pills nav-pills-dark">
+                <!-- nav item -->
+                <li class="nav-item">
+                    <a class="nav-link " href="{{ url_for('logout') }}"><i
+                            class="feather-icon icon-log-out me-2"></i>Log out</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+{% include "footer.html" %}

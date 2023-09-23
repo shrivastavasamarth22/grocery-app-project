@@ -1,0 +1,275 @@
+{% include "dashboard-header.html" %} {# Navbar Vertical #}
+<nav class="navbar-vertical-nav d-none d-xl-block">
+    <div class="navbar-vertical">
+        <div class="px-4 py-5">
+            <a href="{{ url_for('dashboard') }}" class="navbar-brand">
+                <img
+                        src="{{ url_for('static', filename='images/logo/freshcart-logo.svg') }}"
+                        alt="FreshCart Logo"
+                />
+            </a>
+        </div>
+        <div class="navbar-vertical-content flex-grow-1" data-simplebar="">
+            <ul class="navbar-nav flex-column" id="sideNavbar">
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('dashboard') }}">
+                        <div class="d-flex align-items-center">
+                            <span class="nav-link-icon">
+                                <i class="bi bi-house"></i
+                                ></span>
+                            <span class="nav-link-text">Dashboard</span>
+                        </div>
+                    </a>
+                </li>
+                <li class="nav-item mt-6 mb-3">
+                    <span class="nav-label">Store Managements</span>
+                </li>
+                <li class="nav-item">
+                    <a
+                            class="nav-link"
+                            href="{{ url_for('dashboard_products') }}"
+                    >
+                        <div class="d-flex align-items-center">
+                            <span class="nav-link-icon">
+                                <i class="bi bi-cart"></i
+                                ></span>
+                            <span class="nav-link-text">Products</span>
+                        </div>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a
+                            class="nav-link"
+                            href="{{ url_for('dashboard_categories') }}"
+                    >
+                        <div class="d-flex align-items-center">
+                            <span class="nav-link-icon">
+                                <i class="bi bi-list-task"></i
+                                ></span>
+                            <span class="nav-link-text">Categories</span>
+                        </div>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a
+                            class="nav-link"
+                            href="{{ url_for('dashboard_customers') }}"
+                    >
+                        <div class="d-flex align-items-center">
+                            <span class="nav-link-icon">
+                                <i class="bi bi-bag"></i
+                                ></span>
+                            <span class="nav-link-text">Orders</span>
+                        </div>
+                    </a>
+                </li>
+                <li class="nav-item active">
+                    <a
+                            class="nav-link active"
+                            href="{{ url_for('dashboard_customers') }}"
+                    >
+                        <div class="d-flex align-items-center">
+                            <span class="nav-link-icon">
+                                <i class="bi bi-people"></i
+                                ></span>
+                            <span class="nav-link-text">Customers</span>
+                        </div>
+                    </a>
+                </li>
+                <li class="nav-item ">
+                    <a class="nav-link " href="{{ url_for('promo_codes') }}">
+                        <div class="d-flex align-items-center">
+                            <span class="nav-link-icon"> <i class="bi bi-star"></i></span>
+                            <span class="nav-link-text">Promo Codes</span>
+                        </div>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+{# Navbar Vertical Off-Canvas #}
+<nav
+        class="navbar-vertical-nav offcanvas offcanvas-start navbar-offcanvac"
+        tabindex="-1"
+        id="offcanvasExample"
+>
+    <div class="navbar-vertical">
+        <div
+                class="px-4 py-5 d-flex justify-content-between align-items-center"
+        >
+            <a href="{{ url_for('dashboard') }}" class="navbar-brand">
+                <img
+                        src="{{ url_for('static', filename='images/logo/freshcart-logo.svg') }}"
+                        alt="FreshCart Logo"
+                />
+            </a>
+            <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="offcanvas"
+                    aria-label="Close"
+            ></button>
+        </div>
+        <div class="navbar-vertical-content flex-grow-1" data-simplebar="">
+            <ul class="navbar-nav flex-column">
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('dashboard') }}">
+                        <div class="d-flex align-items-center">
+                            <span class="nav-link-icon">
+                                <i class="bi bi-house"></i
+                                ></span>
+                            <span>Dashboard</span>
+                        </div>
+                    </a>
+                </li>
+                <li class="nav-item mt-6 mb-3">
+                    <span class="nav-label">Store Managements</span>
+                </li>
+                <li class="nav-item">
+                    <a
+                            class="nav-link"
+                            href="{{ url_for('dashboard_products') }}"
+                    >
+                        <div class="d-flex align-items-center">
+                            <span class="nav-link-icon">
+                                <i class="bi bi-cart"></i
+                                ></span>
+                            <span class="nav-link-text">Products</span>
+                        </div>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a
+                            class="nav-link"
+                            href="{{ url_for('dashboard_categories') }}"
+                    >
+                        <div class="d-flex align-items-center">
+                            <span class="nav-link-icon">
+                                <i class="bi bi-list-task"></i
+                                ></span>
+                            <span class="nav-link-text">Categories</span>
+                        </div>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="categories.html">
+                        <div class="d-flex align-items-center">
+                            <span class="nav-link-icon">
+                                <i class="bi bi-bag"></i
+                                ></span>
+                            <span class="nav-link-text">Orders</span>
+                        </div>
+                    </a>
+                </li>
+                <li class="nav-item active">
+                    <a
+                            class="nav-link active"
+                            href="{{ url_for('dashboard_customers') }}"
+                    >
+                        <div class="d-flex align-items-center">
+                            <span class="nav-link-icon">
+                                <i class="bi bi-people"></i
+                                ></span>
+                            <span class="nav-link-text">Customers</span>
+                        </div>
+                    </a>
+                </li>
+                <li class="nav-item ">
+                    <a class="nav-link " href="{{ url_for('promo_codes') }}">
+                        <div class="d-flex align-items-center">
+                            <span class="nav-link-icon"> <i class="bi bi-star"></i></span>
+                            <span class="nav-link-text">Promo Codes</span>
+                        </div>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<main class="main-content-wrapper">
+    <div class="container">
+        <div class="row mb-8">
+            <div class="col-md-12">
+                <div
+                        class="d-md-flex justify-content-between align-items-center"
+                >
+                    <div>
+                        <h2>Customers</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xl-12 col-12 mb-5">
+                <div class="card h-100 card-lg">
+
+                    <div class="row justify-content-between mb-2">
+                        <div class="col-md-4 col-12">
+                            <form class="d-flex" role="search">
+                                <input id="search-input" class="form-control" type="search"
+                                       placeholder="Search Customers"
+                                       aria-label="Search"
+                                >
+                            </form>
+                        </div>
+                    </div>
+                    <div class="card-body p-0">
+                        <div class="table-responsive">
+                            <table
+                                    class="table table-centered table-hover table-borderless mb-0 table-with-checkbox text-nowrap"
+                            >
+                                <thead class="bg-light">
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Email</th>
+                                    <th></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for customer in customers %}
+                                    <tr data-search="{{ customer.name }} {{ customer.email }}">
+                                        <td>
+                                            <div
+                                                    class="d-flex align-items-center"
+                                            >
+                                                {% if customer.image %}
+                                                    <img
+                                                            src="{{ url_for('serve_user_image', user_id=customer.user_id) }}"
+                                                            alt=""
+                                                            class="avatar avatar-xs rounded-circle"
+                                                    />
+                                                {% else %}
+                                                    <img
+                                                            src="{{ url_for('static', filename='images/avatar/user_avatar.png') }}"
+                                                            alt=""
+                                                            class="avatar avatar-xs rounded-circle"
+                                                    />
+                                                {% endif %}
+                                                <div class="ms-2">
+                                                    {{ customer.name }}
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>{{ customer.email }}</td>
+                                        <td>
+                                            <a
+                                                    class="link-danger"
+                                                    href="{{ url_for('delete_customer', customer_id=customer.customer_id) }}"
+                                            ><i class="bi bi-trash me-3"></i>Delete</a>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+{% include "dashboard-footer.html" %}

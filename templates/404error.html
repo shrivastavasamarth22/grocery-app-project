@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>404 Error eCommerce HTML Template - FreshCart </title>
+
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap-icons/font/bootstrap-icons.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/feather-webfont/dist/feather-icons.css') }}">
+
+
+    <link rel="shotcut icon" type="image/x-icon" href="{{ url_for('static', filename="images/favicon/favicon.ico") }}">
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+
+</head>
+
+<body>
+<main>
+    <!-- section -->
+    <section>
+        <div class="container d-flex flex-column">
+            <!-- row -->
+            <div class="row min-vh-100 justify-content-center align-items-center">
+                <!-- col -->
+                <div class="offset-lg-1 col-lg-10  py-8 py-xl-0">
+                    <div class=" mb-10 mb-xxl-0">
+                        <!-- img -->
+                        <a href="{{ url_for('home') }}"> <img src="{{ url_for('static', filename='images/logo/freshcart-logo.svg') }}" alt="Logo"></a>
+                    </div>
+                    <div class="row justify-content-center align-items-center">
+                        <!-- content -->
+                        <div class="col-md-6">
+                            <div class=" mb-6 mb-lg-0">
+                                <h1>Something’s wrong here...</h1>
+                                <p class="mb-8">We can’t find the page you’re looking for.<br>
+                                    Check out our help center or head back to home.</p>
+                                <!-- btn -->
+                                <a href="{{ url_for('home') }}" class="btn btn-primary ms-2">Back to home</a>
+                            </div>
+
+                        </div>
+                        <div class="col-md-6">
+                            <div>
+                                <!-- img -->
+                                <img src="{{ url_for('static', filename='images/vectors/error.svg') }}" alt="Error" class="img-fluid">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+<!-- section -->
+
+
+<!-- Javascript-->
+<script src="{{ url_for('static', filename='js/jquery/dist/jquery.min.js') }}"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
+        crossorigin="anonymous"></script>
+
+
+<script src="{{ url_for('static', filename='js/theme.min.js') }}"></script>
+
+</body>
+
+</html>

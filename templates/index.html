@@ -1,0 +1,290 @@
+{% include "header.html" %}
+
+{#  Banner Section  1#}
+<section class="mt-8">
+    <!-- container -->
+    <div class="container">
+        <div class="row">
+            <!-- col -->
+            <div class="col-12">
+                <!-- cta -->
+                <div class="bg-light d-lg-flex justify-content-between align-items-center py-6 py-lg-3 px-8 text-center text-lg-start rounded">
+                    <!-- img -->
+                    <div class="d-lg-flex align-items-center">
+                        <img src="{{ url_for('static', filename='images/icons/about-icons-1.svg') }}" alt=""
+                             class="img-fluid">
+                        <!-- text -->
+                        <div class="ms-lg-4">
+                            <h1 class="fs-2 mb-1">Welcome to FreshCart</h1>
+                            <span>Download the app and get free food & <span class="text-primary">₹30</span> off on your first order.</span>
+                        </div>
+                    </div>
+                    <div class="mt-3 mt-lg-0">
+                        <!-- btn -->
+                        <a href="#" class="btn btn-dark">Download FreshCart App</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{#  Banner Section 2  #}
+<section class="mt-8">
+    <div class="container">
+        <!-- row -->
+        <div class="table-responsive-xl pb-6 pb-xl-0">
+            <div class="row flex-nowrap">
+                <div class="col-12 col-xl-4 col-lg-6">
+                    <div class="p-8 mb-3 rounded"
+                         style="background:url(../static/images/banner/ad-banner-1.jpg)no-repeat; background-size: cover;">
+                        <div>
+                            <h3 class="mb-0 fw-bold">10% cashback on <br> personal care</h3>
+                            <div class="mt-4 mb-5 fs-5">
+                                <p class="mb-0">Max cashback: ₹50</p>
+                                <span>Code: <span class="fw-bold text-dark">CARE10</span></span>
+                            </div>
+                            <a href="#" class="btn btn-dark">Shop Now</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-xl-4 col-lg-6">
+                    <div class="p-8 mb-3 rounded"
+                         style="background:url(../static/images/banner/ad-banner-2.jpg)no-repeat; background-size: cover;">
+                        <!-- Banner Content -->
+                        <div>
+                            <!-- Banner Content -->
+                            <h3 class=" fw-bold mb-3">Say yes to <br> season’s fresh</h3>
+                            <div class="mt-4 mb-5 fs-5">
+                                <p class="fs-5 mb-0">Refresh your day <br> the fruity way</p>
+                            </div>
+                            <a href="#" class="btn btn-dark">Shop Now</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-xl-4 col-lg-6">
+                    <div class="p-8 mb-3 rounded"
+                         style="background:url(../static/images/banner/ad-banner-3.jpg)no-repeat; background-size: cover;">
+                        <div>
+                            <!-- Banner Content -->
+                            <h3 class=" fw-bold mb-3">When in doubt,<br> eat ice cream</h3>
+                            <div class="mt-4 mb-5 fs-5">
+                                <p class="fs-5 mb-0">Enjoy a scoop of<br> summer today</p>
+                            </div>
+                            <a href="#" class="btn btn-dark">Shop Now</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{# Category Section #}
+<section class="my-lg-14 my-8">
+    <!-- category -->
+    <div class="container">
+        <!-- row -->
+        <div class="row">
+            <div class="col-12">
+                <div class="mb-8">
+                    <!-- heading -->
+                    <h3 class="mb-0">Shop by Category</h3>
+                </div>
+            </div>
+
+        </div>
+        <!-- row -->
+        <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 row-cols-xxl-6 g-6">
+            <!-- col -->
+            {% for category in categories %}
+                <div class="col">
+                    <a href="{{ url_for('category', category_id=category.category_id) }}"
+                       class="text-decoration-none text-inherit">
+                        <!-- card -->
+                        <div class="card card-product">
+                            <div class="card-body text-center py-8">
+                                <!-- img -->
+                                <img src="{{ url_for('serve_category_image', category_id=category.category_id) }}"
+                                     alt="{{ category.category_name }} Image"
+                                     class="mb-3">
+                                <!-- text -->
+                                <div class="text-truncate">{{ category.name }}</div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+{# Popular Products Section #}
+<section class="my-lg-14 my-8">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 mb-6">
+                <h3 class="mb-0">Popular Products</h3>
+            </div>
+        </div>
+
+        <div class="row g-4 row-cols-lg-5 row-cols-2 row-cols-md-3">
+            {% for item in items %}
+                <div class="col">
+                    <div class="card card-product">
+                        <div class="card-body">
+                            <div class="text-center position-relative">
+                                <a href="{{ url_for('product_details', item_id=item.item_id) }}">
+                                    <img src="{{ url_for('serve_item_image', item_id=item.item_id, image_number=1) }}"
+                                         alt="Product Image"
+                                         class="mb-3 img-fluid"
+                                    >
+                                </a>
+                            </div>
+                            <div class="text-small mb-1">
+                                <a href="{{ url_for('category', category_id=item.category.category_id) }}"
+                                   class="text-decoration-none text-muted">
+                                    <small>{{ item.category.name }}</small>
+                                </a>
+                            </div>
+                            <h2 class="fs-6">
+                                <a href="{{ url_for('product_details', item_id=item.item_id) }}"
+                                   class="text-inherit text-decoration-none">{{ item.name }}</a>
+                            </h2>
+                            <div class="d-flex justify-content-between align-items-center mt-3">
+                                <div><span class="text-dark">₹ {{ item.rate_per_unit }} / {{ item.unit_name }}</span>
+                                </div>
+                                <div>
+                                    {% if not logged_in %}
+                                        <a href="" role="button" data-bs-toggle="modal"
+                                           data-bs-target="#userModal" class="btn btn-primary btn-sm">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                 viewBox="0 0 24 24"
+                                                 fill="none"
+                                                 stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                                 stroke-linejoin="round"
+                                                 class="feather feather-plus">
+                                                <line x1="12" y1="5" x2="12" y2="19"></line>
+                                                <line x1="5" y1="12" x2="19" y2="12"></line>
+                                            </svg>
+                                            Add
+                                        </a>
+                                    {% else %}
+                                        <form action="{{ url_for('add_to_cart') }}" method="post">
+                                            <input type="hidden" name="item_id" value="{{ item.item_id }}">
+                                            <input type="hidden" name="quantity" value="1">
+                                            <input type="hidden" name="return_url" value="{{ request.path }}">
+                                            <button type="submit" class="btn btn-primary btn-sm">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                     viewBox="0 0 24 24"
+                                                     fill="none"
+                                                     stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                                     stroke-linejoin="round"
+                                                     class="feather feather-plus">
+                                                    <line x1="12" y1="5" x2="12" y2="19"></line>
+                                                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                                                </svg>
+                                                Add
+                                            </button>
+                                        </form>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+{#  Ad Banners  #}
+<section>
+    <div class="container">
+        <div class="row">
+            <div class="col-12 col-md-6 mb-3 mb-lg-0">
+                <div>
+                    <div class="py-10 px-8 rounded"
+                         style="background:url(static/images/banner/grocery-banner.png)no-repeat; background-size: cover; background-position: center;">
+                        <div>
+                            <h3 class="fw-bold mb-1">Fruits &amp; Vegetables
+                            </h3>
+                            <p class="mb-4">Get Upto <span class="fw-bold">30%</span> Off</p>
+                            <a href="#!" class="btn btn-dark">Shop Now</a>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+            <div class="col-12 col-md-6 ">
+
+                <div>
+                    <div class="py-10 px-8 rounded"
+                         style="background:url(static/images/banner/grocery-banner-2.jpg)no-repeat; background-size: cover; background-position: center;">
+                        <div>
+                            <h3 class="fw-bold mb-1">Freshly Baked
+                                Buns
+                            </h3>
+                            <p class="mb-4">Get Upto <span class="fw-bold">25%</span> Off</p>
+                            <a href="#!" class="btn btn-dark">Shop Now</a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{#  Features Section  #}
+<section class="my-lg-14 my-8">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 col-lg-3">
+                <div class="mb-8 mb-xl-0">
+                    <div class="mb-6"><img src="{{ url_for('static', filename='images/icons/clock.svg') }}"
+                                           alt="Clock Icon"></div>
+                    <h3 class="h5 mb-3">
+                        10 minute grocery now
+                    </h3>
+                    <p>Get your order delivered to your doorstep at the earliest from FreshCart pickup stores near
+                        you.</p>
+                </div>
+            </div>
+            <div class="col-md-6  col-lg-3">
+                <div class="mb-8 mb-xl-0">
+                    <div class="mb-6"><img src="{{ url_for('static', filename='images/icons/gift.svg') }}"
+                                           alt="Gift Icon"></div>
+                    <h3 class="h5 mb-3">Best Prices &amp; Offers</h3>
+                    <p>Cheaper prices than your local supermarket, great cashback offers to top it off. Get best
+                        prices &amp;
+                        offers.
+                    </p>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-3">
+                <div class="mb-8 mb-xl-0">
+                    <div class="mb-6"><img src="{{ url_for('static', filename='images/icons/package.svg') }}"
+                                           alt="Package Icon"></div>
+                    <h3 class="h5 mb-3">Wide Assortment</h3>
+                    <p>Choose from 5000+ products across food, personal care, household, bakery, veg and non-veg
+                        &amp; other
+                        categories.</p>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-3">
+                <div class="mb-8 mb-xl-0">
+                    <div class="mb-6"><img src="{{ url_for('static', filename='images/icons/refresh-cw.svg') }}"
+                                           alt="Refresh Icon"></div>
+                    <h3 class="h5 mb-3">Easy Returns</h3>
+                    <p>Not satisfied with a product? Return it at the doorstep &amp; get a refund within hours. No
+                        questions asked
+                        <a href="#!">policy</a>.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% include "footer.html" %}

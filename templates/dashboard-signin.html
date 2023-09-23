@@ -1,0 +1,92 @@
+<!Doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>FreshCart</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap-icons/font/bootstrap-icons.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/feather-webfont/dist/feather-icons.css') }}">
+
+
+    <link rel="shotcut icon" type="image/x-icon" href="{{ url_for('static', filename="images/favicon/favicon.ico") }}">
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+
+<body>
+
+<!-- navigation -->
+<div class="border-bottom shadow-sm">
+    <nav class="navbar navbar-light py-2">
+        <div class="container justify-content-center justify-content-lg-between">
+            <a class="navbar-brand" href="{{ url_for('home') }}">
+                <img src="{{ url_for('static', filename='images/logo/freshcart-logo.svg') }}" alt=""
+                     class="d-inline-block align-text-top">
+            </a>
+        </div>
+    </nav>
+</div>
+
+
+<main>
+    <!-- section -->
+    <section class="my-lg-14 my-8">
+        <div class="container">
+            <!-- row -->
+            <div class="row justify-content-center align-items-center">
+                <div class="col-12 col-md-6 col-lg-4 order-lg-1 order-2">
+                    <!-- img -->
+                    <img src="{{ url_for('static', filename='images/vectors/signin-g.svg') }}" alt="Vector Graphic" class="img-fluid">
+                </div>
+                <!-- col -->
+                <div class="col-12 col-md-6 offset-lg-1 col-lg-4 order-lg-2 order-1">
+                    <div class="mb-lg-9 mb-5">
+                        <h1 class="mb-1 h2 fw-bold">Admin Panel Login</h1>
+                        <p>Manage FreshCart with Confidence</p>
+                    </div>
+
+                    {# Flash message #}
+                    {% with messages = get_flashed_messages() %}
+                        {% if messages %}
+                            {% for message in messages %}
+                                <p class="small text-danger">{{ message }}</p></span>
+                            {% endfor %}
+                        {% endif %}
+                    {% endwith %}
+
+                    <form action="{{ url_for('dashboard_signin') }}" method="post">
+                        <div class="row g-3">
+                            <!-- row -->
+
+                            <div class="col-12">
+                                <!-- input -->
+                                <input type="email" name="email" class="form-control" id="inputEmail4"
+                                       placeholder="Email" required>
+                            </div>
+                            <div class="col-12 mb-2">
+                                <!-- input -->
+                                <div class="password-field position-relative">
+                                    <input type="password" name="password" id="fakePassword"
+                                           placeholder="Enter Password" class="form-control" required minlength="8">
+                                    <span><i id="passwordToggler" class="bi bi-eye-slash"></i></span>
+                                </div>
+
+                            </div>
+                            <!-- btn -->
+                            <div class="col-12 d-grid">
+                                <button type="submit" class="btn btn-primary">Sign In</button>
+                            </div>
+                            <!-- link -->
+                            <div>Don’t have an account? <a href="{{ url_for('dashboard_signup') }}"> Sign Up</a></div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+{% include "footer.html" %}

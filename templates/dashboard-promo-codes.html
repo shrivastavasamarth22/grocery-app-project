@@ -1,0 +1,259 @@
+{% include "dashboard-header.html" %}
+
+{# Create Code Modal #}
+<div class="modal fade" id="createCodeModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content p-4">
+            <div class="modal-header border-0">
+                <h5 class="modal-title fs-3 fw-bold" id="userModalLabel">Add Code</h5>
+
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form action="{{ url_for('promo_codes') }}" method="post">
+                    <div class="mb-3">
+                        <label for="code" class="form-label">Code Name</label>
+                        <input type="text" name="code" class="form-control" id="code" placeholder="Enter Code Name"
+                               oninput="toUpperCase(this)" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="value" class="form-label">Deduction Value</label>
+                        <input type="number" name="value" class="form-control" id="value"
+                               placeholder="Enter Deduction Value"
+                               required>
+                    </div>
+                    <div class="form-check form-switch mb-4">
+
+                        <input class="form-check-input" type="checkbox" role="switch"
+                               id="flexSwitchStock" checked name="is_active">
+                        <label class="form-check-label" for="flexSwitchStock">Active</label>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Create Code</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{#  Navbar Vertical  #}
+<nav class="navbar-vertical-nav d-none d-xl-block ">
+    <div class="navbar-vertical">
+        <div class="px-4 py-5">
+            <a href="{{ url_for('dashboard') }}" class="navbar-brand">
+                <img src="{{ url_for('static', filename='images/logo/freshcart-logo.svg') }}" alt="FreshCart Logo">
+            </a>
+        </div>
+        <div class="navbar-vertical-content flex-grow-1" data-simplebar="">
+            <ul class="navbar-nav flex-column" id="sideNavbar">
+
+                <li class="nav-item ">
+                    <a class="nav-link " href="{{ url_for('dashboard') }}">
+                        <div class="d-flex align-items-center">
+                            <span class="nav-link-icon"> <i class="bi bi-house"></i></span>
+                            <span class="nav-link-text">Dashboard</span>
+                        </div>
+                    </a>
+                </li>
+                <li class="nav-item mt-6 mb-3">
+                    <span class="nav-label">Store Managements</span></li>
+                <li class="nav-item ">
+                    <a class="nav-link " href="{{ url_for('dashboard_products') }}">
+                        <div class="d-flex align-items-center">
+                            <span class="nav-link-icon"> <i class="bi bi-cart"></i></span>
+                            <span class="nav-link-text">Products</span>
+                        </div>
+                    </a>
+                </li>
+                <li class="nav-item ">
+                    <a class="nav-link" href="{{ url_for('dashboard_categories') }}">
+                        <div class="d-flex align-items-center">
+                            <span class="nav-link-icon"> <i class="bi bi-list-task"></i></span>
+                            <span class="nav-link-text">Categories</span>
+                        </div>
+                    </a>
+                </li>
+                <li class="nav-item ">
+                    <a class="nav-link " href="categories.html">
+                        <div class="d-flex align-items-center">
+                            <span class="nav-link-icon"> <i class="bi bi-bag"></i></span>
+                            <span class="nav-link-text">Orders</span>
+                        </div>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('dashboard_customers') }}">
+                        <div class="d-flex align-items-center">
+                            <span class="nav-link-icon"> <i class="bi bi-people"></i></span>
+                            <span class="nav-link-text">Customers</span>
+                        </div>
+                    </a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link active" href="{{ url_for('promo_codes') }}">
+                        <div class="d-flex align-items-center">
+                            <span class="nav-link-icon"> <i class="bi bi-star"></i></span>
+                            <span class="nav-link-text">Promo Codes</span>
+                        </div>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+{# Navbar Vertical Off-Canvas #}
+<nav class="navbar-vertical-nav offcanvas offcanvas-start navbar-offcanvac" tabindex="-1" id="offcanvasExample">
+    <div class="navbar-vertical">
+        <div class="px-4 py-5 d-flex justify-content-between align-items-center">
+            <a href="{{ url_for('dashboard') }}" class="navbar-brand">
+                <img src="{{ url_for('static', filename='images/logo/freshcart-logo.svg') }}" alt="FreshCart Logo">
+            </a>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="navbar-vertical-content flex-grow-1" data-simplebar="">
+            <ul class="navbar-nav flex-column">
+                <li class="nav-item ">
+                    <a class="nav-link " href="{{ url_for('dashboard') }}">
+                        <div class="d-flex align-items-center">
+                            <span class="nav-link-icon"> <i class="bi bi-house"></i></span>
+                            <span>Dashboard</span>
+                        </div>
+                    </a>
+                </li>
+                <li class="nav-item mt-6 mb-3">
+                    <span class="nav-label">Store Managements</span></li>
+                <li class="nav-item ">
+                    <a class="nav-link " href="{{ url_for('dashboard_products') }}">
+                        <div class="d-flex align-items-center">
+                            <span class="nav-link-icon"> <i class="bi bi-cart"></i></span>
+                            <span class="nav-link-text">Products</span>
+                        </div>
+                    </a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link active" href="{{ url_for('dashboard_categories') }}">
+                        <div class="d-flex align-items-center">
+                            <span class="nav-link-icon"> <i class="bi bi-list-task"></i></span>
+                            <span class="nav-link-text">Categories</span>
+                        </div>
+                    </a>
+                </li>
+                <li class="nav-item ">
+                    <a class="nav-link " href="categories.html">
+                        <div class="d-flex align-items-center">
+                            <span class="nav-link-icon"> <i class="bi bi-bag"></i></span>
+                            <span class="nav-link-text">Orders</span>
+                        </div>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('dashboard_customers') }}">
+                        <div class="d-flex align-items-center">
+                            <span class="nav-link-icon"> <i class="bi bi-people"></i></span>
+                            <span class="nav-link-text">Customers</span>
+                        </div>
+                    </a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link active" href="{{ url_for('promo_codes') }}">
+                        <div class="d-flex align-items-center">
+                            <span class="nav-link-icon"> <i class="bi bi-star"></i></span>
+                            <span class="nav-link-text">Promo Codes</span>
+                        </div>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+</nav>
+
+<main class="main-content-wrapper">
+    <div class="container">
+        <!-- row -->
+        <div class="row mb-8">
+            <div class="col-md-12">
+                <div class="d-md-flex justify-content-between align-items-center">
+                    <!-- pageheader -->
+                    <div>
+                        <h2>Promo Codes</h2>
+                    </div>
+                    <!-- button -->
+                    <div>
+                        <a href="{{ url_for('add_category') }}" class="btn btn-primary" data-bs-toggle="modal"
+                           data-bs-target="#createCodeModal">Add New Code</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row ">
+            <div class="col-xl-12 col-12 mb-5">
+                <!-- card -->
+                <div class="card h-100 card-lg">
+                    <!-- card body -->
+                    <div class="row justify-content-between mb-2">
+                        <div class="col-md-4 col-12">
+                            <form class="d-flex" role="search">
+                                <input id="search-input" class="form-control" type="search"
+                                       placeholder="Search Codes"
+                                       aria-label="Search"
+                                >
+                            </form>
+                        </div>
+                    </div>
+                    <div class="card-body p-0">
+                        <!-- table -->
+                        <div class="table-responsive ">
+                            <table class="table table-centered table-hover mb-0 text-nowrap table-borderless table-with-checkbox">
+                                <thead class="bg-light">
+                                <tr>
+                                    <th>Name</th>
+
+                                    <th>Value</th>
+
+                                    <th>Status</th>
+
+                                    <th></th>
+                                    <th></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for code in promo_codes %}
+                                    <tr data-search="{{ code.code }}">
+                                        <td><a href="#" class="text-reset">{{ code.code }}</a></td>
+                                        <td>{{ code.deduction_value|string + "%" }}</td>
+
+                                        {% if code.is_active %}
+                                            <td>
+                                                <span class="badge bg-light-primary text-dark-primary">Active</span>
+                                            </td>
+                                        {% else %}
+                                            <td>
+                                                <span class="badge bg-light-danger text-dark-danger">Inactive</span>
+                                            </td>
+                                        {% endif %}
+                                        <td>
+                                            <a class="link-light-secondary" href="{{ url_for('toggle_code', code=code.code) }}">
+                                                <i class="bi bi-toggles me-3"></i>Toggle Status
+                                            </a>
+                                        </td>
+                                        <td>
+                                            <a
+                                                    class="link-danger"
+                                                    href="{{ url_for('delete_code', code=code.code) }}"
+                                            ><i class="bi bi-trash me-3"></i>Delete</a>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+
+{% include "dashboard-footer.html" %}
