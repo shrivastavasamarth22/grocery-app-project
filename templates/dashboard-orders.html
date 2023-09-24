@@ -178,7 +178,7 @@
                                 <tbody>
                                 {% for order in orders %}
                                     <tr data-search="{{ order.order_id }} {{ order.user.name }} {{ order.payment_method }}">
-                                        <td><a href="#" class="text-reset">#{{ order.order_id }}</a></td>
+                                        <td><a href="{{ url_for("order_expanded", order_id=order.order_id) }}" class="text-reset">#{{ order.order_id }}</a></td>
                                         <td>{{ order.user.name }}</td>
 
                                         <td>{{ order.date.strftime('%d %b %Y') }}</td>

@@ -337,7 +337,7 @@ def checkout():
             address_id=address_id,
             delivery_instructions=delivery_instructions,
             payment_method=payment_method,
-            total_amount=cart.total_amount,
+            total_amount=cart.total_amount + 20,
             code=cart.code
         )
 
@@ -782,7 +782,10 @@ def dashboard_orders():
 def order_expanded(order_id):
     order = db.get_or_404(Order, order_id)
     order_items = db.session.execute(db.select(OrderItem).where(OrderItem.order_id == order_id)).scalars().all()
-    return render_template('order-expanded.html', order=order, order_items=order_items)
+    # Get order subtotal
+    order.subtotal = sum(order_item.amount for order_item in order_items)
+
+    return render_template('dashboard-order-expanded.html', order=order, order_items=order_items)
 
 
 @app.route('/dashboard/orders/delete')

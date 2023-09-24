@@ -1,0 +1,324 @@
+{% include "dashboard-header.html" %}
+
+{#  Navbar Vertical  #}
+<nav class="navbar-vertical-nav d-none d-xl-block ">
+    <div class="navbar-vertical">
+        <div class="px-4 py-5">
+            <a href="{{ url_for('dashboard') }}" class="navbar-brand">
+                <img src="{{ url_for('static', filename='images/logo/freshcart-logo.svg') }}" alt="FreshCart Logo">
+            </a>
+        </div>
+        <div class="navbar-vertical-content flex-grow-1" data-simplebar="">
+            <ul class="navbar-nav flex-column" id="sideNavbar">
+
+                <li class="nav-item ">
+                    <a class="nav-link " href="{{ url_for('dashboard') }}">
+                        <div class="d-flex align-items-center">
+                            <span class="nav-link-icon"> <i class="bi bi-house"></i></span>
+                            <span class="nav-link-text">Dashboard</span>
+                        </div>
+                    </a>
+                </li>
+                <li class="nav-item mt-6 mb-3">
+                    <span class="nav-label">Store Managements</span></li>
+                <li class="nav-item ">
+                    <a class="nav-link " href="{{ url_for('dashboard_products') }}">
+                        <div class="d-flex align-items-center">
+                            <span class="nav-link-icon"> <i class="bi bi-cart"></i></span>
+                            <span class="nav-link-text">Products</span>
+                        </div>
+                    </a>
+                </li>
+                <li class="nav-item ">
+                    <a class="nav-link" href="{{ url_for('dashboard_categories') }}">
+                        <div class="d-flex align-items-center">
+                            <span class="nav-link-icon"> <i class="bi bi-list-task"></i></span>
+                            <span class="nav-link-text">Categories</span>
+                        </div>
+                    </a>
+                </li>
+                <li class="nav-item ">
+                    <a class="nav-link active" href="{{ url_for('dashboard_orders') }}">
+                        <div class="d-flex align-items-center">
+                            <span class="nav-link-icon"> <i class="bi bi-bag"></i></span>
+                            <span class="nav-link-text">Orders</span>
+                        </div>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('dashboard_customers') }}">
+                        <div class="d-flex align-items-center">
+                            <span class="nav-link-icon"> <i class="bi bi-people"></i></span>
+                            <span class="nav-link-text">Customers</span>
+                        </div>
+                    </a>
+                </li>
+                <li class="nav-item ">
+                    <a class="nav-link " href="{{ url_for('promo_codes') }}">
+                        <div class="d-flex align-items-center">
+                            <span class="nav-link-icon"> <i class="bi bi-star"></i></span>
+                            <span class="nav-link-text">Promo Codes</span>
+                        </div>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+{# Navbar Vertical Off-Canvas #}
+<nav class="navbar-vertical-nav offcanvas offcanvas-start navbar-offcanvac" tabindex="-1" id="offcanvasExample">
+    <div class="navbar-vertical">
+        <div class="px-4 py-5 d-flex justify-content-between align-items-center">
+            <a href="{{ url_for('dashboard') }}" class="navbar-brand">
+                <img src="{{ url_for('static', filename='images/logo/freshcart-logo.svg') }}" alt="FreshCart Logo">
+            </a>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="navbar-vertical-content flex-grow-1" data-simplebar="">
+            <ul class="navbar-nav flex-column">
+                <li class="nav-item ">
+                    <a class="nav-link " href="{{ url_for('dashboard') }}">
+                        <div class="d-flex align-items-center">
+                            <span class="nav-link-icon"> <i class="bi bi-house"></i></span>
+                            <span>Dashboard</span>
+                        </div>
+                    </a>
+                </li>
+                <li class="nav-item mt-6 mb-3">
+                    <span class="nav-label">Store Managements</span></li>
+                <li class="nav-item ">
+                    <a class="nav-link active" href="{{ url_for('dashboard_products') }}">
+                        <div class="d-flex align-items-center">
+                            <span class="nav-link-icon"> <i class="bi bi-cart"></i></span>
+                            <span class="nav-link-text">Products</span>
+                        </div>
+                    </a>
+                </li>
+                <li class="nav-item ">
+                    <a class="nav-link" href="{{ url_for('dashboard_categories') }}">
+                        <div class="d-flex align-items-center">
+                            <span class="nav-link-icon"> <i class="bi bi-list-task"></i></span>
+                            <span class="nav-link-text">Categories</span>
+                        </div>
+                    </a>
+                </li>
+                <li class="nav-item ">
+                    <a class="nav-link active" href="{{ url_for('dashboard_orders') }}">
+                        <div class="d-flex align-items-center">
+                            <span class="nav-link-icon"> <i class="bi bi-bag"></i></span>
+                            <span class="nav-link-text">Orders</span>
+                        </div>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('dashboard_customers') }}">
+                        <div class="d-flex align-items-center">
+                            <span class="nav-link-icon"> <i class="bi bi-people"></i></span>
+                            <span class="nav-link-text">Customers</span>
+                        </div>
+                    </a>
+                </li>
+                <li class="nav-item ">
+                    <a class="nav-link " href="{{ url_for('promo_codes') }}">
+                        <div class="d-flex align-items-center">
+                            <span class="nav-link-icon"> <i class="bi bi-star"></i></span>
+                            <span class="nav-link-text">Promo Codes</span>
+                        </div>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+</nav>
+
+<main class="main-content-wrapper">
+    <!-- container -->
+    <div class="container">
+        <!-- row -->
+        <div class="row mb-8">
+            <div class="col-md-12">
+                <div class="d-md-flex justify-content-between align-items-center">
+                    <div>
+                    </div>
+                    <!-- button -->
+                    <div>
+                        <a href="{{ url_for('dashboard_orders') }}" class="btn btn-primary">Back to all orders</a>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <!-- row -->
+        <div class="row ">
+            <div class="col-xl-12 col-12 mb-5">
+                <!-- card -->
+                <div class="card h-100 card-lg">
+                    <div class="card-body p-6">
+                        <div class="d-md-flex justify-content-between">
+                            <div class="d-flex align-items-center mb-2 mb-md-0">
+                                <h2 class="mb-0">Order ID: # {{ order.order_id }}</h2>
+                            </div>
+                        </div>
+                        <div class="mt-8">
+                            <div class="row">
+                                <!-- address -->
+                                <div class="col-lg-4 col-md-4 col-12">
+                                    <div class="mb-6">
+                                        <h6>Customer Details</h6>
+                                        <p class="mb-1 lh-lg">{{ order.user.name }}<br>
+                                            {{ order.user.email }}</p>
+                                    </div>
+                                </div>
+                                <!-- address -->
+                                <div class="col-lg-4 col-md-4 col-12">
+                                    <div class="mb-6">
+                                        <h6>Shipping Address</h6>
+                                        <p class="mb-1 lh-lg">{{ order.address.label }}<br>
+                                            {{ order.address.address1 }}, {{ order.address.address2 }}<br>
+                                            {{ order.address.city }}, {{ order.address.state }}, {{ order.address.country }}<br>
+                                            {{ order.address.zip_code }}</p>
+                                    </div>
+                                </div>
+                                <!-- address -->
+                                <div class="col-lg-4 col-md-4 col-12">
+                                    <div class="mb-6">
+                                        <h6>Order Details</h6>
+                                        <p class="mb-1 lh-lg">Order ID: <span
+                                                class="text-dark">{{ order.order_id }}</span><br>
+                                            Order Date: <span
+                                                    class="text-dark">{{ order.date.strftime('%d %b %Y') }}</span><br>
+                                            Order Total: <span class="text-dark">₹ {{ order.total_amount }}</span></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="table-responsive">
+                                <!-- Table -->
+                                <table class="table mb-0 text-nowrap table-centered">
+                                    <!-- Table Head -->
+                                    <thead class="bg-light">
+                                    <tr>
+                                        <th>Products</th>
+                                        <th>Price</th>
+                                        <th>Quantity</th>
+                                        <th>Total</th>
+                                    </tr>
+                                    </thead>
+                                    <!-- tbody -->
+                                    <tbody>
+                                    {% for item in order_items %}
+                                        <tr>
+                                            <td>
+                                                <div class="d-flex align-items-center">
+                                                    <div>
+                                                        <img src="{{ url_for('serve_item_image', item_id=item.item.item_id, image_number=1) }}"
+                                                             alt="Item Image"
+                                                             class="icon-shape icon-lg">
+                                                    </div>
+                                                    <div class="ms-lg-4 mt-2 mt-lg-0">
+                                                        <h5 class="mb-0 h6">
+                                                            {{ item.item.name }}
+                                                        </h5>
+
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td><span class="text-body">₹ {{ item.item.rate_per_unit }}</span></td>
+                                            <td>{{ item.quantity }}</td>
+                                            <td>₹ {{ item.amount }}</td>
+                                        </tr>
+                                    {% endfor %}
+                                    <tr>
+                                        <td class="border-bottom-0 pb-0"></td>
+                                        <td class="border-bottom-0 pb-0"></td>
+                                        <td colspan="1" class="fw-medium text-dark ">
+                                            <!-- text -->
+                                            Sub Total :
+                                        </td>
+                                        <td class="fw-medium text-dark ">
+                                            <!-- text -->
+                                            ₹ {{ order.subtotal }}
+                                        </td>
+                                    </tr>
+                                    {% if order.code %}
+                                        <tr>
+                                            <td class="border-bottom-0 pb-0"></td>
+                                            <td class="border-bottom-0 pb-0"></td>
+                                            <td colspan="1" class="fw-medium text-dark ">
+                                                <!-- text -->
+                                                Promo Applied :
+                                            </td>
+                                            <td class="fw-medium text-dark ">
+                                                <!-- text -->
+                                                -
+                                                ₹ {{ order.subtotal - order.subtotal_after_promo * (order.promo_code.deduction_value / 100) }}
+                                            </td>
+                                        </tr>
+                                    {% endif %}
+                                    <tr>
+                                        <td class="border-bottom-0 pb-0"></td>
+                                        <td class="border-bottom-0 pb-0"></td>
+                                        <td colspan="1" class="fw-medium text-dark ">
+                                            <!-- text -->
+                                            Shipping Cost
+                                        </td>
+                                        <td class="fw-medium text-dark  ">
+                                            <!-- text -->
+                                            ₹ 20
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td></td>
+                                        <td></td>
+                                        <td colspan="1" class="fw-semi-bold text-dark ">
+                                            <!-- text -->
+                                            Grand Total
+                                        </td>
+                                        <td class="fw-semi-bold text-dark ">
+                                            <!-- text -->
+                                            ₹ {{ order.total_amount }}
+                                        </td>
+                                    </tr>
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body p-6">
+                        <div class="row">
+                            <div class="col-md-6 mb-4 mb-lg-0">
+                                <h6>Payment Info:</h6>
+                                <span>{{ order.payment_method }}</span>
+                            </div>
+                            <div class="col-md-6">
+                                <h5>Delivery Instructions:</h5>
+                                <p>
+                                    {% if order.delivery_instructions %}
+                                        {{ order.delivery_instructions }}
+                                    {% else %}
+                                        No instructions provided
+                                    {% endif %}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</main>
+
+{% include "dashboard-footer.html" %}
