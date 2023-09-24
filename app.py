@@ -297,7 +297,6 @@ def apply_promo_code():
     return redirect(url_for('cart'))
 
 
-
 @app.route('/cart/remove-item/<int:cart_item_id>')
 @login_required
 @customer_required
@@ -316,7 +315,7 @@ def remove_cart_item(cart_item_id):
     return redirect(url_for('cart'))
 
 
-@app.route('/checkout')
+@app.route('/checkout', methods=["GET", "POST"])
 @login_required
 @customer_required
 def checkout():
@@ -324,6 +323,44 @@ def checkout():
     cart = db.session.execute(db.select(Cart).where(Cart.user_id == current_user.user_id)).scalar()
     cart_items = db.session.execute(db.select(CartItem).where(CartItem.cart_id == cart.cart_id)).scalars().all()
     item_subtotal = sum(cart_item.amount for cart_item in cart_items)
+
+    if request.method == "POST":
+        address_id = request.form.get('selected_address')
+        delivery_instructions = request.form.get('delivery_instructions')
+        payment_method = request.form.get('selected_payment_option')
+
+        # Create a new order
+        new_order = Order(
+            user_id=current_user.user_id,
+            address_id=address_id,
+            code=cart.code,
+            payment_method=payment_method,
+            delivery_instructions=delivery_instructions,
+            total_amount=cart.total_amount
+        )
+
+        db.session.add(new_order)
+
+        # Create new order items from cart items
+        for cart_item in cart_items:
+            new_order_item = OrderItem(
+                order_id=new_order.order_id,
+                item_id=cart_item.item_id,
+                quantity=cart_item.quantity,
+                amount=cart_item.amount
+            )
+            db.session.add(new_order_item)
+
+            # Delete the cart items
+            db.session.delete(cart_item)
+
+        # Clear the cart
+        cart.total_amount = 0
+        cart.code = None
+
+        db.session.commit()
+        return redirect(url_for('home'))
+
     return render_template('checkout.html', addresses=addresses, states=STATES, item_subtotal=item_subtotal)
 
 
