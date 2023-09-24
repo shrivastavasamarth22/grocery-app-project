@@ -53,7 +53,7 @@
                 <li class="nav-item">
                     <a
                             class="nav-link"
-                            href="{{ url_for('dashboard_customers') }}"
+                            href="{{ url_for('dashboard_orders') }}"
                     >
                         <div class="d-flex align-items-center">
                             <span class="nav-link-icon">
@@ -153,12 +153,10 @@
                         </div>
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="categories.html">
+                <li class="nav-item ">
+                    <a class="nav-link " href="{{ url_for('dashboard_orders') }}">
                         <div class="d-flex align-items-center">
-                            <span class="nav-link-icon">
-                                <i class="bi bi-bag"></i
-                                ></span>
+                            <span class="nav-link-icon"> <i class="bi bi-bag"></i></span>
                             <span class="nav-link-text">Orders</span>
                         </div>
                     </a>

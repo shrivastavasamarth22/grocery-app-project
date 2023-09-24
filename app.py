@@ -768,6 +768,34 @@ def update_product():
     return render_template('update-product.html', product=item, categories=categories)
 
 
+@app.route('/dashboard/orders')
+@login_required
+@manager_required
+def dashboard_orders():
+    orders = db.session.execute(db.select(Order).order_by(Order.order_id.desc())).scalars().all()
+    return render_template('dashboard-orders.html', orders=orders)
+
+
+@app.route('/dashboard/order-expanded/<int:order_id>')
+@login_required
+@manager_required
+def order_expanded(order_id):
+    order = db.get_or_404(Order, order_id)
+    order_items = db.session.execute(db.select(OrderItem).where(OrderItem.order_id == order_id)).scalars().all()
+    return render_template('order-expanded.html', order=order, order_items=order_items)
+
+
+@app.route('/dashboard/orders/delete')
+@login_required
+@manager_required
+def delete_order():
+    order_id = request.args.get('order_id')
+    order = db.get_or_404(Order, order_id)
+    db.session.delete(order)
+    db.session.commit()
+    return redirect(url_for('dashboard_orders'))
+
+
 @app.route('/dashboard/customers')
 @login_required
 @manager_required
