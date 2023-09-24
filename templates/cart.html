@@ -101,7 +101,8 @@
 
                             </ul>
                         {% else %}
-                            <h4 class="text-gray-400">You don't have any items in your...Click the button below to fill
+                            <h4 class="text-gray-400">You don't have any items in your cart...Click the button below to
+                                fill
                                 it
                                 with goodies!</h4>
                         {% endif %}
@@ -207,13 +208,20 @@
 
                                 </div>
                                 <!-- btn -->
-                                {% if cart.code %}
-                                    <div class="d-grid">
-                                        <button type="submit" class="btn btn-outline-dark mb-1" disabled>Redeem</button>
-                                    </div>
+                                {% if cart_items %}
+                                    {% if cart.code %}
+                                        <div class="d-grid">
+                                            <button type="submit" class="btn btn-outline-dark mb-1" disabled>Redeem
+                                            </button>
+                                        </div>
+                                    {% else %}
+                                        <div class="d-grid">
+                                            <button type="submit" class="btn btn-outline-dark mb-1">Redeem</button>
+                                        </div>
+                                    {% endif %}
                                 {% else %}
                                     <div class="d-grid">
-                                        <button type="submit" class="btn btn-outline-dark mb-1">Redeem</button>
+                                        <button type="submit" class="btn btn-outline-dark mb-1" disabled>Redeem</button>
                                     </div>
                                 {% endif %}
                                 <p class="text-muted mb-0"><small>Terms & Conditions apply</small></p>

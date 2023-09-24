@@ -54,42 +54,47 @@
                 <div class="py-6 p-md-6 p-lg-10">
                     <!-- heading -->
                     <h2 class="mb-6">Your Orders</h2>
-
-                    <div class="table-responsive-xxl border-0">
-                        <!-- Table -->
-                        <table class="table mb-0 text-nowrap table-centered ">
-                            <!-- Table Head -->
-                            <thead class="bg-light">
-                            <tr>
-                                <th>Order ID</th>
-                                <th>Date</th>
-                                <th>Items</th>
-                                <th>Amount</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <!-- Table body -->
-                            {% for order in orders %}
+                    {% if orders %}
+                        <div class="table-responsive-xxl border-0">
+                            <!-- Table -->
+                            <table class="table mb-0 text-nowrap table-centered ">
+                                <!-- Table Head -->
+                                <thead class="bg-light">
                                 <tr>
-                                <td class="align-middle border-top-0">
-                                    <a href="#" class="text-inherit"># {{ order.order_id }}</a>
+                                    <th>Order ID</th>
+                                    <th>Date</th>
+                                    <th>Items</th>
+                                    <th>Amount</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <!-- Table body -->
+                                {% for order in orders %}
+                                    <tr>
+                                        <td class="align-middle border-top-0">
+                                            <a href="#" class="text-inherit"># {{ order.order_id }}</a>
 
-                                </td>
-                                <td class="align-middle border-top-0">
-                                    {{ order.date.strftime('%d %b %Y')  }}
-                                </td>
-                                <td class="align-middle border-top-0">
-                                    {{ order.num_items }}
+                                        </td>
+                                        <td class="align-middle border-top-0">
+                                            {{ order.date.strftime('%d %b %Y') }}
+                                        </td>
+                                        <td class="align-middle border-top-0">
+                                            {{ order.num_items }}
 
-                                </td>
-                                <td class="align-middle border-top-0">
-                                    ₹ {{ order.total_amount }}
-                                </td>
-                            </tr>
-                            {% endfor %}
-                            </tbody>
-                        </table>
-                    </div>
+                                        </td>
+                                        <td class="align-middle border-top-0">
+                                            ₹ {{ order.total_amount }}
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    {% else %}
+                        <div>
+                            <h4 class="text-gray-400">You do not have any orders yet...Start shopping to see them here</h4>
+                        </div>
+                    {% endif %}
                 </div>
             </div>
         </div>

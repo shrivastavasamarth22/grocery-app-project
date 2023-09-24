@@ -448,6 +448,10 @@ def account_settings():
     user = db.session.execute(
         db.select(User).where(User.user_id == current_user.user_id, User.role == 'customer')).scalar()
 
+    # Get the number of orders of the user
+    user.num_orders = db.session.execute(
+        db.select(func.count(Order.order_id)).where(Order.user_id == current_user.user_id)).scalar()
+
     if request.method == "POST":
         user.name = request.form.get('name')
         user.email = request.form.get('email')
@@ -461,6 +465,29 @@ def account_settings():
         return redirect(url_for('account_settings'))
 
     return render_template('account-settings.html', user=user)
+
+
+@app.route('/delete-account')
+@login_required
+@customer_required
+def delete_account():
+    user = db.get_or_404(User, current_user.user_id)
+    # Delete all order items of the user
+    db.session.execute(db.delete(OrderItem).where(OrderItem.order.user_id == current_user.user_id))
+    # Delete all orders of the user
+    db.session.execute(db.delete(Order).where(Order.user_id == current_user.user_id))
+    # Delete all addresses of the user
+    db.session.execute(db.delete(Address).where(Address.user_id == current_user.user_id))
+    # Delete the user's cart items
+    db.session.execute(db.delete(CartItem).where(CartItem.cart.user_id == current_user.user_id))
+    # Delete the cart of the user
+    db.session.execute(db.delete(Cart).where(Cart.user_id == current_user.user_id))
+
+
+    db.session.delete(user)
+    db.session.commit()
+    logout_user()
+    return redirect(url_for('home'))
 
 
 @app.route('/orders')
@@ -595,12 +622,12 @@ def dashboard():
     # Fetch new orders in the last 7 days
     new_orders = db.session.execute(db.select(func.count(Order.order_id)).where(Order.date >= seven_days_ago)).scalar()
 
-
     # Fetch the top 5 most recent orders
     recent_orders = db.session.execute(db.select(Order).order_by(Order.order_id.desc()).limit(5)).scalars().all()
 
     return render_template('dashboard.html', total_customers=total_customers, new_customers=new_customers,
-                           total_orders=total_orders, total_amount=total_amount, new_orders=new_orders, recent_orders=recent_orders)
+                           total_orders=total_orders, total_amount=total_amount, new_orders=new_orders,
+                           recent_orders=recent_orders)
 
 
 @app.route('/dashboard/logout')
@@ -814,6 +841,18 @@ def dashboard_customers():
 def delete_customer():
     customer_id = request.args.get('customer_id')
     customer = db.get_or_404(User, customer_id)
+    # Delete all order items of the user
+    db.session.execute(db.delete(OrderItem).where(OrderItem.order.user_id == customer_id))
+    # Delete all orders of the user
+    db.session.execute(db.delete(Order).where(Order.user_id == customer_id))
+    # Delete all addresses of the user
+    db.session.execute(db.delete(Address).where(Address.user_id == customer_id))
+    # Delete the user's cart items
+    db.session.execute(db.delete(CartItem).where(CartItem.cart.user_id == customer_id))
+    # Delete the cart of the user
+    db.session.execute(db.delete(Cart).where(Cart.user_id == customer_id))
+
+    # Delete the user
     db.session.delete(customer)
     db.session.commit()
     return redirect(url_for('dashboard_customers'))

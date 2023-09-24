@@ -144,11 +144,12 @@
                         <!-- heading -->
                         <h5 class="mb-4">Delete Account</h5>
                         <p class="mb-2">Would you like to delete your account?</p>
-                        <p class="mb-5">This account contain 12 orders, Deleting your account will remove all the order
+                        <p class="mb-5">This account contain {{ user.num_orders }} orders, Deleting your account will remove all the order
                             details
                             associated with it.</p>
                         <!-- btn -->
-                        <a href="#" class="btn btn-outline-danger">I want to delete my account</a>
+                        <a href="#" class="btn btn-outline-danger" data-bs-toggle="modal"
+                                   data-bs-target="#deleteModal">I want to delete my account</a>
                     </div>
                 </div>
             </div>
@@ -190,6 +191,34 @@
                             class="feather-icon icon-log-out me-2"></i>Log out</a>
                 </li>
             </ul>
+        </div>
+    </div>
+</div>
+
+{# Delete account modal #}
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content p-4">
+            <div class="modal-header border-0">
+                <h5 class="modal-title fs-3 fw-bold" id="deleteModalLabel">Are you sure?</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>You will lose all your order information</p>
+                <div class="row">
+                    <div class="col-md-6">
+                        <a href="{{ url_for('delete_account') }}" class="btn btn-outline-danger" role="button">
+                            Yes, delete my account
+                        </a>
+                    </div>
+                    <div class="col-md-6">
+                        <a href="#" class="btn btn-gray-400" role="button" data-bs-toggle="modal" data-bs-target="#deleteModal">
+                            No, keep my account
+                        </a>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </div>
 </div>
