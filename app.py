@@ -13,6 +13,7 @@ from models import db
 from models import User, Category, Item, CartItem, Order, OrderItem, Cart, PromoCodes, Address
 
 from functions import allowed_file, process_date, process_switch, get_all_rows
+from states import STATES
 
 load_dotenv()
 
@@ -27,7 +28,6 @@ db.init_app(app)
 # CREATE LOGIN MANAGER
 login_manager = LoginManager()
 login_manager.init_app(app)
-
 
 # CREATE USER LOADER CALLBACK
 @login_manager.user_loader
@@ -286,7 +286,7 @@ def apply_promo_code():
     if request.method == "POST":
         code = request.form.get('promo_code')
         promo_code = db.session.execute(db.select(PromoCodes).where(PromoCodes.code == code)).scalar()
-        if promo_code:
+        if promo_code and promo_code.is_active:
             cart = db.session.execute(db.select(Cart).where(Cart.user_id == current_user.user_id)).scalar()
             cart.total_amount -= cart.total_amount * (promo_code.deduction_value / 100)
             cart.code = code
@@ -320,7 +320,11 @@ def remove_cart_item(cart_item_id):
 @login_required
 @customer_required
 def checkout():
-    return render_template('checkout.html')
+    addresses = db.session.execute(db.select(Address).where(Address.user_id == current_user.user_id)).scalars().all()
+    cart = db.session.execute(db.select(Cart).where(Cart.user_id == current_user.user_id)).scalar()
+    cart_items = db.session.execute(db.select(CartItem).where(CartItem.cart_id == cart.cart_id)).scalars().all()
+    item_subtotal = sum(cart_item.amount for cart_item in cart_items)
+    return render_template('checkout.html', addresses=addresses, states=STATES, item_subtotal=item_subtotal)
 
 
 @app.route('/search-product', methods=["GET", "POST"])
@@ -357,44 +361,9 @@ def category(category_id):
 @login_required
 @customer_required
 def addresses():
-    indian_states = [
-        "Andhra Pradesh",
-        "Arunachal Pradesh",
-        "Assam",
-        "Bihar",
-        "Chhattisgarh",
-        "Goa",
-        "Gujarat",
-        "Haryana",
-        "Himachal Pradesh",
-        "Jharkhand",
-        "Karnataka",
-        "Kerala",
-        "Madhya Pradesh",
-        "Maharashtra",
-        "Manipur",
-        "Meghalaya",
-        "Mizoram",
-        "Nagaland",
-        "Odisha",
-        "Punjab",
-        "Rajasthan",
-        "Sikkim",
-        "Tamil Nadu",
-        "Telangana",
-        "Tripura",
-        "Uttar Pradesh",
-        "Uttarakhand",
-        "West Bengal",
-        "Andaman and Nicobar Islands",
-        "Chandigarh",
-        "Dadra and Nagar Haveli and Daman and Diu",
-        "Lakshadweep",
-        "Delhi (National Capital Territory of Delhi)",
-        "Puducherry (Pondicherry)"
-    ]
+
     addresses = db.session.execute(db.select(Address).where(Address.user_id == current_user.user_id)).scalars().all()
-    return render_template('account-addresses.html', addresses=addresses, states=indian_states)
+    return render_template('account-addresses.html', addresses=addresses, states=STATES)
 
 
 @app.route('/addresses/create', methods=["POST"])
@@ -402,6 +371,7 @@ def addresses():
 @customer_required
 def add_address():
     if request.method == "POST":
+        return_url = request.form.get('return_url')
         new_address = Address(
             user_id=current_user.user_id,
             label=request.form.get('label'),
@@ -414,7 +384,7 @@ def add_address():
         )
         db.session.add(new_address)
         db.session.commit()
-        return redirect(url_for('addresses'))
+        return redirect(return_url)
 
 
 @app.route('/addresses/delete')
