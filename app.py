@@ -577,6 +577,11 @@ def dashboard_signup():
 @login_required
 @manager_required
 def dashboard():
+    # Fetch the total amount of all orders in the present month
+    total_amount = db.session.execute(
+        db.select(func.sum(Order.total_amount)).where(
+            func.extract('month', Order.date) == datetime.now().month)).scalar()
+
     # Fetch the total number of customers
     total_customers = db.session.execute(db.select(func.count(User.user_id)).where(User.role == 'customer')).scalar()
     # Calculate the date seven days ago
@@ -584,7 +589,18 @@ def dashboard():
     # Query the database to count new customers in the last 7 days
     new_customers = db.session.execute(db.select(func.count(User.user_id)).where(User.role == 'customer',
                                                                                  User.signup_date >= seven_days_ago)).scalar()
-    return render_template('dashboard.html', total_customers=total_customers, new_customers=new_customers)
+
+    # Fetch the total number of orders
+    total_orders = db.session.execute(db.select(func.count(Order.order_id))).scalar()
+    # Fetch new orders in the last 7 days
+    new_orders = db.session.execute(db.select(func.count(Order.order_id)).where(Order.date >= seven_days_ago)).scalar()
+
+
+    # Fetch the top 5 most recent orders
+    recent_orders = db.session.execute(db.select(Order).order_by(Order.order_id.desc()).limit(5)).scalars().all()
+
+    return render_template('dashboard.html', total_customers=total_customers, new_customers=new_customers,
+                           total_orders=total_orders, total_amount=total_amount, new_orders=new_orders, recent_orders=recent_orders)
 
 
 @app.route('/dashboard/logout')
