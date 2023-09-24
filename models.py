@@ -83,6 +83,8 @@ class Order(db.Model):
     address_id = db.Column(db.Integer, db.ForeignKey('address.address_id'))
     date = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     code = db.Column(db.String(20), db.ForeignKey('promo_codes.code'), nullable=True)
+    payment_method = db.Column(db.String(20), nullable=False)
+    delivery_instructions = db.Column(db.String(200))
     total_amount = db.Column(db.Float, nullable=False)
 
     user = db.relationship('User', backref=db.backref('orders', lazy=True))
