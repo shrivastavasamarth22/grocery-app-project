@@ -29,6 +29,7 @@ db.init_app(app)
 login_manager = LoginManager()
 login_manager.init_app(app)
 
+
 # CREATE USER LOADER CALLBACK
 @login_manager.user_loader
 def load_user(user_id):
@@ -279,6 +280,7 @@ def update_cart():
 
     return redirect(url_for('cart'))
 
+
 @app.route('/cart/apply-promo-code', methods=["POST"])
 @login_required
 @customer_required
@@ -333,32 +335,37 @@ def checkout():
         new_order = Order(
             user_id=current_user.user_id,
             address_id=address_id,
-            code=cart.code,
-            payment_method=payment_method,
             delivery_instructions=delivery_instructions,
-            total_amount=cart.total_amount
+            payment_method=payment_method,
+            total_amount=cart.total_amount,
+            code=cart.code
         )
 
         db.session.add(new_order)
+        db.session.commit()
 
-        # Create new order items from cart items
+        # Get the latest order
+        order = db.session.execute(db.select(Order).order_by(Order.order_id.desc())).scalar()
+
+        # Create order items from cart items
         for cart_item in cart_items:
             new_order_item = OrderItem(
-                order_id=new_order.order_id,
+                order_id=order.order_id,
                 item_id=cart_item.item_id,
                 quantity=cart_item.quantity,
                 amount=cart_item.amount
             )
             db.session.add(new_order_item)
 
-            # Delete the cart items
-            db.session.delete(cart_item)
-
-        # Clear the cart
-        cart.total_amount = 0
+        # Clear the cart and delete cart items
+        cart.total_amount = 0.0
         cart.code = None
 
+        for cart_item in cart_items:
+            db.session.delete(cart_item)
+
         db.session.commit()
+
         return redirect(url_for('home'))
 
     return render_template('checkout.html', addresses=addresses, states=STATES, item_subtotal=item_subtotal)
@@ -398,7 +405,6 @@ def category(category_id):
 @login_required
 @customer_required
 def addresses():
-
     addresses = db.session.execute(db.select(Address).where(Address.user_id == current_user.user_id)).scalars().all()
     return render_template('account-addresses.html', addresses=addresses, states=STATES)
 
@@ -455,6 +461,24 @@ def account_settings():
         return redirect(url_for('account_settings'))
 
     return render_template('account-settings.html', user=user)
+
+
+@app.route('/orders')
+@login_required
+@customer_required
+def orders():
+    # Fetch all orders of the current user
+    orders = db.session.execute(db.select(Order).where(Order.user_id == current_user.user_id)).scalars().all()
+
+    # Get number of order items of the order
+    for order in orders:
+        order_items = db.session.execute(
+            db.select(OrderItem).where(OrderItem.order_id == order.order_id)).scalars().all()
+        order.num_items = len(order_items)
+
+        print(order.num_items)
+
+    return render_template('orders.html', orders=orders)
 
 
 @app.route('/change-password', methods=["POST"])
