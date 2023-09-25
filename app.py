@@ -609,6 +609,9 @@ def dashboard():
         db.select(func.sum(Order.total_amount)).where(
             func.extract('month', Order.date) == datetime.now().month)).scalar()
 
+    if total_amount is None:
+        total_amount = 0
+
     # Fetch the total number of customers
     total_customers = db.session.execute(db.select(func.count(User.user_id)).where(User.role == 'customer')).scalar()
     # Calculate the date seven days ago

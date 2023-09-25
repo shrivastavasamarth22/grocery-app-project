@@ -38,7 +38,7 @@
                     </a>
                 </li>
                 <li class="nav-item ">
-                    <a class="nav-link " href="{{ url_for('dashboard_orders') }}">
+                    <a class="nav-link active" href="{{ url_for('dashboard_orders') }}">
                         <div class="d-flex align-items-center">
                             <span class="nav-link-icon"> <i class="bi bi-bag"></i></span>
                             <span class="nav-link-text">Orders</span>
@@ -104,7 +104,7 @@
                     </a>
                 </li>
                 <li class="nav-item ">
-                    <a class="nav-link " href="{{ url_for('dashboard_orders') }}">
+                    <a class="nav-link active" href="{{ url_for('dashboard_orders') }}">
                         <div class="d-flex align-items-center">
                             <span class="nav-link-icon"> <i class="bi bi-bag"></i></span>
                             <span class="nav-link-text">Orders</span>
@@ -262,7 +262,7 @@
                                     <!-- progressbar -->
                                     <div class="progress bg-light-primary" style="height: 6px;">
                                         <div class="progress-bar bg-primary" role="progressbar"
-                                             aria-label="Example 1px high" style="width: {{ (profit / total_amount) * 100 }}%;"
+                                             aria-label="Example 1px high" style="width: {% if total_amount == 0 %} 0 {% else %} {{ (profit / total_amount) * 100 }}{% endif %}%;"
                                              aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
                                     </div>
                                 </div>
@@ -277,7 +277,7 @@
                                     <!-- progressbar -->
                                     <div class="progress bg-light-danger" style="height: 6px;">
                                         <div class="progress-bar bg-danger" role="progressbar"
-                                             aria-label="Example 1px high" style="width: {{ (expense / total_amount) * 100 }}%;"
+                                             aria-label="Example 1px high" style="width: {% if total_amount == 0 %} 0 {% else %} {{ (profit / total_amount) * 100 }}{% endif %}%;"
                                              aria-valuenow="45" aria-valuemin="0" aria-valuemax="100"></div>
                                     </div>
                                 </div>
