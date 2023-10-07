@@ -1,0 +1,302 @@
+routes:
+  - endpoint: /category-images/<int:category_id>
+    view_function: serve_category_image
+    methods: GET
+
+  - endpoint: /item-images/<int:item_id>/<int:image_number>
+    view_function: serve_item_image
+    methods: GET
+
+  - endpoint: /user-images/<int:user_id>
+    view_function: serve_user_image
+    methods: GET
+    decorators:
+      - login_required
+
+
+  - endpoint: /
+    view_function: home
+    methods: GET
+
+  - endpoint: /signin
+    view_function: signin
+    methods: GET
+      - POST
+
+  - endpoint: /signup
+    view_function: signup
+    methods: GET
+      - POST
+
+  - endpoint: /add-to-cart
+    view_function: add_to_cart
+    methods: POST
+    decorators:
+      - login_required
+      - customer_required
+
+
+  - endpoint: /cart
+    view_function: cart
+    methods: GET
+    decorators:
+      - login_required
+      - customer_required
+
+  - endpoint: /update_cart
+    view_function: update_cart
+    methods: POST
+    decorators:
+      - login_required
+      - customer_required
+
+  - endpoint: /cart/apply-promo-code
+    view_function: apply_promo_code
+    methods: POST
+    decorators:
+      - login_required
+      - customer_required
+
+  - endpoint: /cart/remove-item/<int:cart_item_id>
+    view_function: remove_item
+    methods: GET
+    decorators:
+      - login_required
+      - customer_required
+
+  - endpoint: /checkout
+    view_function: checkout
+    methods: GET
+      - POST
+    decorators:
+      - login_required
+      - customer_required
+
+  - endpoint: /search-product
+    view_function: search_product
+    methods: GET
+      - POST
+
+  - endpoint: /product-details/<int:item_id>
+    view_function: product_details
+    methods: GET
+
+  - endpoint: /category/<int:category_id>
+    view_function: category
+    methods: GET
+
+  - endpoint: /addresses
+    view_function: addresses
+    methods: GET
+    decorators:
+      - login_required
+      - customer_required
+
+  - endpoint: /addresses/create
+    view_function: create_address
+    methods: POST
+    decorators:
+      - login_required
+      - customer_required
+
+  - endpoint: /addresses/delete
+    view_function: delete_address
+    methods: GET
+    decorators:
+      - login_required
+      - customer_required
+
+  - endpoint: /account-settings
+    view_function: account_settings
+    methods: GET
+      - POST
+    decorators:
+      - login_required
+      - customer_required
+
+  - endpoint: /delete-account
+    view_function: delete_account
+    methods: GET
+    decorators:
+      - login_required
+      - customer_required
+
+  - endpoint: /orders
+    view_function: orders
+    methods: GET
+    decorators:
+      - login_required
+      - customer_required
+
+  - endpoint: /change-password
+    view_function: change_password
+    methods: POST
+    decorators:
+      - login_required
+      - customer_required
+
+  - endpoint: /logout
+    view_function: logout
+    methods: GET
+    decorators:
+      - login_required
+      - customer_required
+
+
+  - endpoint: /dashboard/signin
+    view_function: dashboard_signin
+    methods: GET
+      - POST
+
+  - endpoint: /dashboard/signup
+    view_function: dashboard_signup
+    methods: GET
+      - POST
+
+  - endpoint: /dashboard
+    view_function: dashboard
+    methods: GET
+    decorators:
+      - login_required
+      - manager_required
+
+  - endpoint: /dashboard/logout
+    view_function: dashboard_logout
+    methods: GET
+    decorators:
+      - login_required
+      - manager_required
+
+  - endpoint: /dashboard/categories
+    view_function: dashboard_categories
+    methods: GET
+    decorators:
+      - login_required
+      - manager_required
+
+  - endpoint: /dashboard/categories/create
+    view_function: dashboard_create_category
+    methods: GET
+      - POST
+    decorators:
+      - login_required
+      - manager_required
+
+  - endpoint: /dashboard/categories/delete
+    view_function: dashboard_delete_category
+    methods: GET
+    decorators:
+      - login_required
+      - manager_required
+
+  - endpoint: /dashboard/categories/update
+    view_function: dashboard_update_category
+    methods: GET
+      - POST
+    decorators:
+      - login_required
+      - manager_required
+
+  - endpoint: /dashboard/products
+    view_function: dashboard_products
+    methods: GET
+    decorators:
+      - login_required
+      - manager_required
+
+  - endpoint: /dashboard/products/create
+    view_function: dashboard_create_product
+    methods: GET
+      - POST
+    decorators:
+      - login_required
+      - manager_required
+
+  - endpoint: /dashboard/products/delete
+    view_function: dashboard_delete_product
+    methods: GET
+    decorators:
+      - login_required
+      - manager_required
+
+  - endpoint: /dashboard/products/update
+    view_function: dashboard_update_product
+    methods: GET
+      - POST
+    decorators:
+      - login_required
+      - manager_required
+
+  - endpoint: /dashboard/orders
+    view_function: dashboard_orders
+    methods: GET
+    decorators:
+      - login_required
+      - manager_required
+
+  - endpoint: /dashboard/order-expanded/<int:order_id>
+    view_function: dashboard_order_expanded
+    methods: GET
+    decorators:
+      - login_required
+      - manager_required
+
+  - endpoint: /dashboard/orders/delete
+    view_function: dashboard_delete_order
+    methods: GET
+    decorators:
+      - login_required
+      - manager_required
+
+  - endpoint: /dashboard/customers
+    view_function: dashboard_customers
+    methods: GET
+    decorators:
+      - login_required
+      - manager_required
+
+  - endpoint: /dashboard/customers/delete
+    view_function: dashboard_delete_customer
+    methods: GET
+    decorators:
+      - login_required
+      - manager_required
+
+  - endpoint: /dashboard/account
+    view_function: dashboard_account
+    methods: GET
+      - POST
+    decorators:
+      - login_required
+      - manager_required
+
+  - endpoint: /dashboard/change-password
+    view_function: dashboard_change_password
+    methods: POST
+    decorators:
+      - login_required
+      - manager_required
+
+  - endpoint: /dashboard/promo-codes
+    view_function: dashboard_promo_codes
+    methods: GET
+      - POST
+    decorators:
+      - login_required
+      - manager_required
+
+  - endpoint: /dashboard/promo-codes/toggle
+    view_function: dashboard_toggle_promo_code
+    methods: GET
+    decorators:
+      - login_required
+      - manager_required
+
+  - endpoint: /dashboard/promo-codes/delete
+    view_function: dashboard_delete_promo_code
+    methods: GET
+    decorators:
+      - login_required
+      - manager_required
+
+
