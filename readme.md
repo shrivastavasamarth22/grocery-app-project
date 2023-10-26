@@ -17,7 +17,7 @@ To run FreshCart locally on your machine, follow these steps:
    ```
    
 
-3. sStart the Flask development server:
+3. Start the Flask development server:
    ```
    flask run
    ```
