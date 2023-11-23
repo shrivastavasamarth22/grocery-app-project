@@ -277,9 +277,11 @@ def update_cart():
                 if int(quantity) == 0:
                     db.session.delete(cart_item)
                 else:
-
-                    cart_item.quantity = min(int(quantity), 10)  # Limit quantity to 10
-                    cart_item.amount = cart_item.quantity * cart_item.item.rate_per_unit
+                    # Check if quantity is greater than stock quantity
+                    if int(quantity) > cart_item.item.stock_quantity:
+                        quantity = cart_item.item.stock_quantity
+                        cart_item.quantity = min(int(quantity), 10)  # Limit quantity to 10
+                        cart_item.amount = cart_item.quantity * cart_item.item.rate_per_unit
 
         # Update the total amount of the cart
         cart.total_amount = sum(cart_item.amount for cart_item in cart.cart_items)
@@ -314,6 +316,7 @@ def remove_cart_item(cart_item_id):
     cart = db.session.execute(db.select(Cart).where(Cart.user_id == current_user.user_id)).scalar()
     cart_items = db.session.execute(db.select(CartItem).where(CartItem.cart_id == cart.cart_id)).scalars().all()
     cart_item = db.get_or_404(CartItem, cart_item_id)
+    item = db.get_or_404(Item, cart_item.item_id)
     if len(cart_items) == 1:
         db.session.delete(cart_item)
         cart.total_amount = 0
@@ -321,6 +324,7 @@ def remove_cart_item(cart_item_id):
     else:
         cart.total_amount -= cart_item.amount
         db.session.delete(cart_item)
+    item.stock_quantity += cart_item.quantity
     db.session.commit()
     return redirect(url_for('cart'))
 
