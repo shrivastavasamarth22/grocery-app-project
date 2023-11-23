@@ -276,13 +276,12 @@
                         <!-- card body -->
                         <div class="card-body p-6">
                             <!-- input -->
-                            <div class="form-check form-switch mb-4">
-                                <input class="form-check-input" type="checkbox" role="switch"
-                                       id="flexSwitchStock" checked name="in_stock">
-                                <label class="form-check-label" for="flexSwitchStock">In Stock</label>
-                            </div>
-                            <!-- input -->
                             <div>
+                                <div class="mb-3">
+                                    <label class="form-label">Stock Quantity</label>
+                                    <input name="stock_quantity" type="number" class="form-control"
+                                           placeholder="Enter quantity" required>
+                                </div>
                                 <div class="mb-3">
                                     <label class="form-label">Manufacture Date</label>
                                     <input name="manufacture_date" type="date" class="form-control"
@@ -294,7 +293,6 @@
                                     <input name="expiry_date" type="date" class="form-control"
                                            placeholder="Select Date" required>
                                 </div>
-
                             </div>
                         </div>
                     </div>

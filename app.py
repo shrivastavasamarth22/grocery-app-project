@@ -124,7 +124,7 @@ def serve_user_image(user_id):
 def home():
     # Get those items which are in stock and not expired
     items = db.session.execute(
-        db.select(Item).where(Item.in_stock == True, Item.expiry_date > datetime.now().date())).scalars().all()
+        db.select(Item).where(Item.expiry_date > datetime.now().date())).scalars().all()
     return render_template('index.html', items=items)
 
 
@@ -376,7 +376,7 @@ def search_product():
     if request.method == "POST":
         search_query = request.form.get('search-query')
         items = db.session.execute(
-            db.select(Item).where(Item.name.ilike(f'%{search_query}%'), Item.in_stock == True,
+            db.select(Item).where(Item.name.ilike(f'%{search_query}%'), Item.stock_quantity > 0,
                                   Item.expiry_date > datetime.now().date())).scalars().all()
         return render_template('search-results.html', items=items, search_query=search_query)
 
@@ -729,7 +729,7 @@ def add_product():
             expiry_date=process_date(request.form.get('expiry_date')),
             unit_name=request.form.get('unit'),
             rate_per_unit=int(request.form.get('price')),
-            in_stock=process_switch(request.form.get('in_stock')),
+            stock_quantity=int(request.form.get('stock_quantity')),
             category_id=int(request.form.get('category')),
             picture1=image_data[0] if len(image_data) >= 0 else None,
             picture2=image_data[1] if len(image_data) >= 1 else None,
@@ -781,7 +781,7 @@ def update_product():
         item.expiry_date = process_date(request.form.get('expiry_date'))
         item.unit_name = request.form.get('unit')
         item.rate_per_unit = int(request.form.get('price'))
-        item.in_stock = process_switch(request.form.get('in_stock'))
+        item.stock_quantity = int(request.form.get('stock_quantity'))
         item.category_id = int(request.form.get('category'))
 
         # Update the images if new images were provided

@@ -39,7 +39,7 @@ class Item(db.Model):
     expiry_date = db.Column(db.Date, nullable=False)
     unit_name = db.Column(db.String(50), nullable=False)
     rate_per_unit = db.Column(db.Integer, nullable=False)
-    in_stock = db.Column(db.Boolean, default=True)
+    stock_quantity = db.Column(db.Integer, nullable=False)
     category_id = db.Column(db.Integer, db.ForeignKey('category.category_id'))
     picture1 = db.Column(db.LargeBinary)  # First image
     picture2 = db.Column(db.LargeBinary)  # Second image
