@@ -703,10 +703,10 @@ def update_category():
             updated_image = request.files['image']
             if updated_image and allowed_file(updated_image.filename):
                 updated_image_data = updated_image.read()  # Read image data as bytes
-                category.name = updated_name
                 category.picture = updated_image_data
-                db.session.commit()
-                return redirect(url_for('dashboard_categories'))
+        category.name = updated_name
+        db.session.commit()
+        return redirect(url_for('dashboard_categories'))
     return render_template('update-category.html', category=category)
 
 
