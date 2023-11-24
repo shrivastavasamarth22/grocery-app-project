@@ -208,12 +208,9 @@ def add_to_cart():
         # Retrieve the quantity from the form
         quantity = int(request.form.get('quantity'))
 
-        # Check if quantity is greater than stock quantity
+        # Set the maximum quantity to stock quantity
         if quantity > item.stock_quantity:
             quantity = item.stock_quantity
-
-        # Limit the quantity to 10
-        quantity = min(quantity, 10)
 
         # Check if the item is already in the cart
         cart_item = db.session.execute(
@@ -238,9 +235,6 @@ def add_to_cart():
 
         if quantity > 10:
             flash("You can add a maximum of 10 items at a time.", "cart-warning")
-
-        # Update the stock quantity of the item
-        item.stock_quantity -= quantity
 
         db.session.commit()
 
@@ -280,7 +274,6 @@ def update_cart():
                     # Check if quantity is greater than stock quantity
                     if int(quantity) > cart_item.item.stock_quantity:
                         quantity = cart_item.item.stock_quantity
-                        cart_item.quantity = min(int(quantity), 10)  # Limit quantity to 10
                         cart_item.amount = cart_item.quantity * cart_item.item.rate_per_unit
 
         # Update the total amount of the cart

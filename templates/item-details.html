@@ -57,7 +57,7 @@
                             <div class="input-group input-spinner align-items-center">
 
                                 <input type="button" value="-" class="button-minus  btn  btn-sm " data-field="quantity">
-                                <input type="number" step="1" max="10" value="1" name="quantity"
+                                <input type="number" step="1" max="{{ item.stock_quantity }}" value="1" name="quantity"
                                        class="quantity-field form-control-sm form-input">
                                 <input type="hidden" name="item_id" value="{{ item.item_id }}">
                                 <input type="button" value="+" class="button-plus btn btn-sm " data-field="quantity">
