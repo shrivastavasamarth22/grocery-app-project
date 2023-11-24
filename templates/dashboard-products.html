@@ -198,6 +198,8 @@
                                             {% if product.stock_quantity > 0 %}
                                                 {% if product.expiry_date < now %}
                                                     <span class="badge bg-light-warning text-dark-warning">Expired</span>
+                                                {% elif product.stock_quantity == 0 %}
+                                                    <span class="badge bg-light-warning text-dark-warning">Out of Stock</span>
                                                 {% else %}
                                                     {{ product.stock_quantity }} Units
                                                 {% endif %}
@@ -236,7 +238,6 @@
 
                         </div>
                     </div>
-                </div>
 
             </div>
 
