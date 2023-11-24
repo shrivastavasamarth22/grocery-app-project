@@ -10,19 +10,24 @@ To run FreshCart locally on your machine, follow these steps:
    ```
    python -m venv venv
    ```
+   
+2. Activate the virtual environment:
+   ```
+   venv/Scripts/activate
+   ```
 
-2. Install the project dependencies using pip:
+3. Install the project dependencies using pip:
    ```
    pip install -r requirements.txt
    ```
    
 
-3. Start the Flask development server:
+4. Start the Flask development server:
    ```
    flask run
    ```
 
-8. Access the FreshCart web application by opening a web browser and navigating to `http://localhost:5000`.
+5. Access the FreshCart web application by opening a web browser and navigating to `http://localhost:5000`.
 
 ## Usage
 
