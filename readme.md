@@ -55,5 +55,6 @@ The project is organized into various directories, including:
 
 - [x] Initialise cart if not present when accessing /cart route
 - [x] Implement stock quantity deduction logic on checkout
-- [ ] Add order details page
+- [ ] Add order details page for customer
+- [ ] Add order details page for manager
 
