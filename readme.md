@@ -51,3 +51,9 @@ The project is organized into various directories, including:
 - SQLite: A lightweight relational database management system.
 - Jinja2: A templating engine for rendering dynamic content in HTML templates.
 
+## Todos
+
+- [ ] Initialise cart as soon as user signs up
+- [ ] Implement stock quantity deduction logic on checkout
+- [ ] Add order details page
+
