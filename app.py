@@ -124,7 +124,7 @@ def serve_user_image(user_id):
 def home():
     # Get those items which are in stock and not expired
     items = db.session.execute(
-        db.select(Item).where(Item.expiry_date > datetime.now().date())).scalars().all()
+        db.select(Item).where(Item.stock_quantity > 0, Item.expiry_date > datetime.now().date())).scalars().all()
     return render_template('index.html', items=items)
 
 

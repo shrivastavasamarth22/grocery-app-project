@@ -175,7 +175,7 @@
                                         <option selected>Choose Category</option>
                                         {% if categories %}
                                             {% for category in categories %}
-                                                <option value="{{ category.category_id }}">{{ category.name }}</option>
+                                                <option value="{{ category.category_id }}" selected="{{ product.category }}">{{ category.name }}</option>
                                             {% endfor %}
                                         {% endif %}
                                         <option value="{{ url_for('add_category') }}">Create Category</option>
