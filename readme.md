@@ -11,7 +11,7 @@ To run FreshCart locally on your machine, follow these steps:
    python -m venv venv
    ```
    
-2. Activate the virtual environment:
+2. Activate the virtual environment (on Windows):
    ```
    venv/Scripts/activate
    ```

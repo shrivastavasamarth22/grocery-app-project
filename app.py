@@ -522,6 +522,20 @@ def orders():
 
     return render_template('orders.html', orders=orders)
 
+@app.route('/order-details/<int:order_id>')
+@login_required
+@customer_required
+def order_details(order_id):
+    # Fetch the order
+    order = db.get_or_404(Order, order_id)
+
+    # Fetch the order items
+    order_items = db.session.execute(
+        db.select(OrderItem).where(OrderItem.order_id == order_id)).scalars().all()
+    )
+
+    return render_template('order-details.html', order=order, order_items=order_items)
+
 
 @app.route('/change-password', methods=["POST"])
 @login_required
