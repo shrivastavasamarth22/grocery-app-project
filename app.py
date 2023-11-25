@@ -252,6 +252,14 @@ def add_to_cart():
 @login_required
 @customer_required
 def cart():
+    # Check if the user has a cart
+    cart = db.session.execute(db.select(Cart).where(Cart.user_id == current_user.user_id)).scalar()
+
+    # If the user doesn't have a cart, create a new cart
+    if not cart:
+        cart = Cart(user_id=current_user.user_id)
+        db.session.add(cart)
+        db.session.commit()
     return render_template('cart.html')
 
 
@@ -367,6 +375,8 @@ def checkout():
         cart.code = None
 
         for cart_item in cart_items:
+            item = db.get_or_404(Item, cart_item.item_id)
+            item.stock_quantity -= cart_item.quantity
             db.session.delete(cart_item)
 
         db.session.commit()
