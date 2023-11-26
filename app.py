@@ -532,7 +532,6 @@ def order_details(order_id):
     # Fetch the order items
     order_items = db.session.execute(
         db.select(OrderItem).where(OrderItem.order_id == order_id)).scalars().all()
-    )
 
     return render_template('order-details.html', order=order, order_items=order_items)
 
