@@ -54,11 +54,11 @@
             <div class="col-lg-9 col-md-8 col-12">
                 <div class="py-6 p-md-6 p-lg-10">
                     <!-- heading -->
-                    <div class="d-flex justify-content-between align-items-center mb-6">
+                    <div class="d-flex justify-content-between align-items-center mb-6 ">
                         <!-- heading -->
                         <div>
-                            <h2 class="mb-0">Order #{{ order.order_id }}</h2>
-                            <h5 class="text-black-50">Order Details</h5>
+                            <h2 class="mb-3">Order #{{ order.order_id }}</h2>
+                            <h5 class="text-black-50">Payment Method: {{ order.payment_method }}</h5>
                         </div>
                         <!-- button -->
                         <a href="{{ url_for('orders') }}" class="btn btn-outline-gray-400 text-muted d-none d-md-block">
@@ -86,7 +86,8 @@
                                         <img
                                                 src="{{ url_for('serve_item_image', item_id=order_item.item_id, image_number=1) }}"
                                                 alt="{{ order_item.item.name }} Image"
-                                                class="icon-shape icon-md"></a>
+                                                class="icon-shape icon-md"
+                                        >   
                                     </td>
                                     <td class="align-middle border-top-0">
                                         {{ order_item.item.name }}
