@@ -20,9 +20,17 @@ To run FreshCart locally on your machine, follow these steps:
    ```
    pip install -r requirements.txt
    ```
-   
+4. Update environemt variables (.env file):
+    ```
+    FLASK_DEBUG=true
+    FLASK_APP=app.py
+    SECRET_KEY=your_secret_key_here
+    DATABASE_URI=sqlite:///db_name.sqlite3
+    SQLALCHEMY_TRACK_MODIFICATIONS=true
 
-4. Start the Flask development server:
+    ```
+
+5. Start the Flask development server:
    ```
    flask run
    ```
