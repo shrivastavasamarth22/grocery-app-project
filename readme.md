@@ -25,7 +25,7 @@ To run FreshCart locally on your machine, follow these steps:
     FLASK_DEBUG=true
     FLASK_APP=app.py
     SECRET_KEY=your_secret_key_here
-    DATABASE_URI=sqlite:///db_name.sqlite3
+    SQL_ALCHEMY_DATABASE_URI=sqlite:///db_name.sqlite3
     SQLALCHEMY_TRACK_MODIFICATIONS=true
 
     ```
