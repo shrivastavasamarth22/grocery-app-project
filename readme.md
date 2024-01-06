@@ -27,7 +27,6 @@ To run FreshCart locally on your machine, follow these steps:
     SECRET_KEY=your_secret_key_here
     SQL_ALCHEMY_DATABASE_URI=sqlite:///db_name.sqlite3
     SQLALCHEMY_TRACK_MODIFICATIONS=true
-
     ```
 
 5. Start the Flask development server:
